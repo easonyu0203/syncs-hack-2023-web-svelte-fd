@@ -58,6 +58,6 @@
 			>
 		</div>
 	{:else}
-		<ProgressRadial ... stroke={100} meter="stroke-primary-500" track="stroke-primary-500/30" />
+		<ProgressRadial stroke={100} meter="stroke-primary-500" track="stroke-primary-500/30" />
 	{/if}
 </main>
