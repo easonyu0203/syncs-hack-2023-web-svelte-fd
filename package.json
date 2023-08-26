@@ -36,6 +36,7 @@
 	"type": "module",
 	"dependencies": {
 		"firebase": "^9.9.0",
+		"heic2any": "^0.0.4",
 		"sveltefire": "^0.4.2",
 		"uuid": "^9.0.0"
 	}

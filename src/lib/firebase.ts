@@ -1,6 +1,6 @@
 // Firebase & Firestore imports
 import { initializeApp } from 'firebase/app';
-import { doc, getFirestore, setDoc } from 'firebase/firestore';
+import { doc, getDoc, getFirestore, setDoc } from 'firebase/firestore';
 
 // Firebase authentication imports
 import { getAuth, signInWithPopup, type UserCredential } from 'firebase/auth';
@@ -24,13 +24,15 @@ const firebaseConfig = {
 export interface UserData {
 	email: string;
 	displayName: string;
-	photoUrl: string;
+	photoURL: string;
+	firstTimeLogin: boolean;
 }
 
 // Image data interface
 export interface ImgData {
 	userId: string;
 	imgUrl: string | null;
+	gsUrl: string | null;
 	uploadTime: string;
 	status:
 		| 'uploading'
@@ -64,15 +66,21 @@ export async function signInWithGoogle() {
 	const user = result.user;
 	const userDocRef = doc(firestore, 'users', user.uid);
 
+	// get the user
+	const firstTimeLogin = !(await getDoc(userDocRef)).exists();
+
 	// Prepare user data to be stored/merged in Firestore
-	const userData = {
-		email: user.email,
-		displayName: user.displayName,
-		photoURL: user.photoURL
+	const userData: UserData = {
+		email: user.email ?? '[no email]',
+		displayName: user.displayName ?? '[no name]',
+		photoURL: user.photoURL ?? '',
+		firstTimeLogin: firstTimeLogin
 	};
 
 	// Store or merge user data
 	await setDoc(userDocRef, userData, { merge: true });
+
+	console.log('sign in!');
 }
 
 /**
@@ -80,7 +88,7 @@ export async function signInWithGoogle() {
  * @param {FileList} img - Image file list
  */
 export async function uploadImg(img: FileList) {
-	if (img.length === 0) {
+	if (!img || img.length === 0) {
 		throw new Error('No image provided.');
 	}
 
@@ -88,8 +96,11 @@ export async function uploadImg(img: FileList) {
 	const fileExtension = file.name.split('.').pop()?.toLowerCase();
 
 	// Check for supported file extensions
-	if (fileExtension !== 'jpg' && fileExtension !== 'png') {
-		throw new Error('Only jpg or png formats are accepted.');
+	if (
+		!fileExtension ||
+		!['jpg', 'jpeg', 'png', 'heic', 'tif', 'tiff', 'bmp'].includes(fileExtension)
+	) {
+		throw new Error('Supported formats are jpg, jpeg, png, heic, tif, tiff, and bmp.');
 	}
 
 	const userId = auth.currentUser?.uid;
@@ -100,7 +111,7 @@ export async function uploadImg(img: FileList) {
 	// Use timestamp for unique naming
 	const timestamp = new Date().getTime();
 	const uploadTime = new Date(timestamp).toString();
-	const fileNameWithTime = `${timestamp}.${fileExtension}`;
+	const fileNameWithTime = `${timestamp}.jpg`; // Always save as .jpg
 	const storageRef = ref(storage, `user/${userId}/${fileNameWithTime}`);
 
 	// Store image metadata in Firestore
@@ -108,29 +119,53 @@ export async function uploadImg(img: FileList) {
 	const imgData: ImgData = {
 		userId: userId,
 		imgUrl: null,
+		gsUrl: null,
 		uploadTime: uploadTime,
-		status: 'unprocess',
+		status: 'uploading',
 		text: null,
 		structurized_text: null,
 		category: null
 	};
 	await setDoc(imgDocRef, imgData);
 
-	const _uploadImg = async () => {
+	console.log('uploading image...');
+
+	const convertAndUpload = async (fileToUpload: File) => {
 		// Upload image to Firebase Storage
-		const result = await uploadBytes(storageRef, file);
+		const result = await uploadBytes(storageRef, fileToUpload);
+		// Construct the gs:// URL for the storage location
+		const storagePath = result.ref.fullPath;
+		const gsUrl = `gs://${storageRef.bucket}/${storagePath}`;
 		const url = await getDownloadURL(result.ref);
 		imgData.imgUrl = url;
+		imgData.gsUrl = gsUrl;
+		imgData.status = 'unprocess';
 
 		// Store image metadata in Firestore
 		await setDoc(imgDocRef, imgData, { merge: true });
 	};
 
-	_uploadImg()
-		.then(() => {
-			console.log('Image uploaded successfully.');
-		})
-		.catch((error) => {
-			console.log(error);
-		});
+	if (fileExtension === 'heic' || fileExtension === 'png') {
+		const heic2any = (await import('heic2any')).default;
+		const convertedFile = (await heic2any({
+			blob: file,
+			toType: 'image/jpeg',
+			quality: 0.8 // You can adjust this for desired quality
+		})) as File;
+		convertAndUpload(convertedFile)
+			.then(() => {
+				console.log('Image uploaded successfully.');
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	} else {
+		convertAndUpload(file)
+			.then(() => {
+				console.log('Image uploaded successfully.');
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	}
 }
