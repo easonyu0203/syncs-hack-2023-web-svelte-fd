@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import HomeButton from '$lib/components/HomeButton.svelte';
 	import SunnyTitle from '$lib/components/SunnyTitle.svelte';
@@ -7,6 +8,12 @@
 	import { docStore } from 'sveltefire';
 
 	const imgDoc = docStore<ImgData>(firestore, `images/${$page.params.imgDocId}`);
+
+	$: if ($imgDoc?.status == 'failed') {
+		goto('/process_failed');
+	} else if ($imgDoc?.status == 'success') {
+		goto(`/adding/${imgDoc.id}`);
+	}
 
 	let dots = '...';
 	onMount(() => {
