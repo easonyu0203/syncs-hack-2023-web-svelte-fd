@@ -10,7 +10,7 @@ return {
 	assets: new Set(["favicon.png","fonts/SpaceGrotesk.ttf"]),
 	mimeTypes: {".png":"image/png",".ttf":"font/ttf"},
 	_: {
-		client: {"start":"_app/immutable/entry/start.de5fbff1.js","app":"_app/immutable/entry/app.4d83bd76.js","imports":["_app/immutable/entry/start.de5fbff1.js","_app/immutable/chunks/index.0ecf0eff.js","_app/immutable/chunks/singletons.bff7df32.js","_app/immutable/entry/app.4d83bd76.js","_app/immutable/chunks/index.0ecf0eff.js"],"stylesheets":[],"fonts":[]},
+		client: {"start":"_app/immutable/entry/start.df555eea.js","app":"_app/immutable/entry/app.dc848acf.js","imports":["_app/immutable/entry/start.df555eea.js","_app/immutable/chunks/scheduler.73576e99.js","_app/immutable/chunks/singletons.5790b253.js","_app/immutable/chunks/index.8b252e6a.js","_app/immutable/entry/app.dc848acf.js","_app/immutable/chunks/scheduler.73576e99.js","_app/immutable/chunks/index.1ecd7c33.js"],"stylesheets":[],"fonts":[]},
 		nodes: [
 			__memo(() => import('./nodes/0.js')),
 			__memo(() => import('./nodes/1.js')),
