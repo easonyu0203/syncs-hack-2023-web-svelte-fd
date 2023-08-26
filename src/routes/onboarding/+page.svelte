@@ -5,6 +5,7 @@
 	import { uploadImg } from '$lib/firebase';
 	import { FileButton } from '@skeletonlabs/skeleton';
 	import { ProgressRadial } from '@skeletonlabs/skeleton';
+	import { toastStore } from '@skeletonlabs/skeleton';
 
 	let files: FileList;
 	let pressAction = false;
@@ -48,8 +49,12 @@
 			>
 			<button
 				type="button"
-				class="btn p-3 variant-filled-primary text-2xl rounded-xl font-extrabold w-64"
-				>Add Audio</button
+				class="btn p-3 variant-filled-secondary text-2xl rounded-xl font-extrabold w-64"
+				on:click={() => {
+					toastStore.trigger({
+						message: 'not yet implemented 🫠😭'
+					});
+				}}>Add Audio</button
 			>
 		{/if}
 	</div>

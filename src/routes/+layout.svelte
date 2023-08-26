@@ -10,8 +10,13 @@
 	import { auth, firestore, storage } from '$lib/firebase';
 	import { Drawer, drawerStore } from '@skeletonlabs/skeleton';
 	import type { DrawerSettings } from '@skeletonlabs/skeleton';
+	import { filter, Emerald, BlueNight, Rustic /* ... */ } from '@skeletonlabs/skeleton';
+	import { Toast, toastStore } from '@skeletonlabs/skeleton';
+	import type { ToastSettings } from '@skeletonlabs/skeleton';
 </script>
 
+<Toast position="t" />
+<Rustic />
 <Drawer position="bottom" height=" h-32">
 	<div class=" flex flex-col space-y-4 h-full justify-center items-center">
 		<a href="/">

@@ -7,6 +7,7 @@
 	import { split } from 'postcss/lib/list';
 	import { drawerStore } from '@skeletonlabs/skeleton';
 	import { draw } from 'svelte/transition';
+	import { filter } from '@skeletonlabs/skeleton';
 
 	const imgDoc = docStore<ImgData>(firestore, `images/${$page.params.imgDocId}`);
 	$: console.log($imgDoc);
@@ -22,6 +23,7 @@
 			<img
 				src={$imgDoc?.imgUrl}
 				alt="image_snap"
+				use:filter={'#Rustic'}
 				class=" absolute top-10 right-5 mr-2 max-h-56 object-cover w-48 -z-0"
 			/>
 		</div>

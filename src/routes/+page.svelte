@@ -1,16 +1,14 @@
 <script lang="ts">
-	import { auth, signInWithGoogle, uploadImg } from '$lib/firebase';
-	import { docStore, userStore } from 'sveltefire';
-	import { FileButton } from '@skeletonlabs/skeleton';
-	const user = userStore(auth);
-	let files: FileList;
-	let err_str: string = '';
-	$: files && console.log(files);
-</script>
+	import HomeButton from '$lib/components/HomeButton.svelte';
+	import SunnyTitle from '$lib/components/SunnyTitle.svelte';
+	import { collectionStore, userStore } from 'sveltefire';
+	import { auth, firestore, type ImgData } from '$lib/firebase';
+	import { collection, where, query } from 'firebase/firestore';
+	import { goto } from '$app/navigation';
 
-<div class="container h-full mx-auto flex flex-col space-y-6 justify-center items-center">
-	<button type="button" class="btn variant-filled" on:click={signInWithGoogle}>Sign in</button>
-	<FileButton accept="image/*" name="files" bind:files />
-	<button type="button" class="btn variant-filled" on:click={() => uploadImg(files)}>Upload</button>
-	<p class="text-2xl">{err_str}</p>
-</div>
+	const user = userStore(auth);
+
+	$: if ($user) {
+		goto(`/${$user.uid}`);
+	}
+</script>
