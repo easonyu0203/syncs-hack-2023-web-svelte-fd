@@ -30,9 +30,10 @@ export interface UserData {
 // Image data interface
 export interface ImgData {
 	userId: string;
-	imgUrl: string;
+	imgUrl: string | null;
 	uploadTime: string;
 	status:
+		| 'uploading'
 		| 'unprocess'
 		| 'extracting_text'
 		| 'predicting_category'
@@ -102,22 +103,34 @@ export async function uploadImg(img: FileList) {
 	const fileNameWithTime = `${timestamp}.${fileExtension}`;
 	const storageRef = ref(storage, `user/${userId}/${fileNameWithTime}`);
 
-	// Upload image to Firebase Storage
-	const result = await uploadBytes(storageRef, file);
-	const url = await getDownloadURL(result.ref);
-
-	// Prepare image metadata to be stored in Firestore
+	// Store image metadata in Firestore
+	const imgDocRef = doc(firestore, 'images', `${userId}_${timestamp}`);
 	const imgData: ImgData = {
 		userId: userId,
-		imgUrl: url,
+		imgUrl: null,
 		uploadTime: uploadTime,
 		status: 'unprocess',
 		text: null,
 		structurized_text: null,
 		category: null
 	};
-
-	// Store image metadata in Firestore
-	const imgDocRef = doc(firestore, 'images', `${userId}_${timestamp}`);
 	await setDoc(imgDocRef, imgData);
+
+	const _uploadImg = async () => {
+		// Upload image to Firebase Storage
+		const result = await uploadBytes(storageRef, file);
+		const url = await getDownloadURL(result.ref);
+		imgData.imgUrl = url;
+
+		// Store image metadata in Firestore
+		await setDoc(imgDocRef, imgData, { merge: true });
+	};
+
+	_uploadImg()
+		.then(() => {
+			console.log('Image uploaded successfully.');
+		})
+		.catch((error) => {
+			console.log(error);
+		});
 }
