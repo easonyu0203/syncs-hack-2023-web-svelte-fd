@@ -46,7 +46,7 @@ export interface ImgData {
 		| 'success'
 		| 'failed';
 	text: string | null;
-	structurized_text: string | null;
+	structurized_text: any | null;
 	category: string | null;
 }
 
