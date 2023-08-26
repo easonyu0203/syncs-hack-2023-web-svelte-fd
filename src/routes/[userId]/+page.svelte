@@ -25,7 +25,6 @@
 		pressAction = true;
 	}
 
-	$: console.log($images);
 	$: events = [
 		...$images.filter((imgDoc) => imgDoc.category == 'events'),
 		...Array(2).fill(0)
@@ -35,6 +34,15 @@
 		0,
 		4
 	);
+
+	function formatTimestamp(timestamp: number) {
+		const date = new Date(timestamp);
+		const year = date.getFullYear();
+		const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-based, so we add 1
+		const day = String(date.getDate()).padStart(2, '0');
+
+		return `${year}-${month}-${day}`;
+	}
 
 	function getMonthDate(timestamp: number) {
 		const date = new Date(timestamp);
@@ -68,7 +76,7 @@
 					</div>
 				</div>
 			{:else}
-				<a href={`images/${imgDoc.id}`} class="card block card-hover p-4 rounded-xl">
+				<a href={`notes/image/${imgDoc.id}`} class="card block card-hover p-4 rounded-xl">
 					<div class="font-extrabold text-lg">{imgDoc.structurized_text.title}</div>
 				</a>
 			{/if}
@@ -90,18 +98,21 @@
 					</div>
 				</div>
 			{:else}
-				<dl class="flex w-80">
-					<div class="flex space-x-4">
-						<div class=" flex flex-col rounded-xl border-2 p-2 px-4 justify-center items-center">
-							<div class=" font-bold">{getMonthDate(imgDoc.uploadTime)[0]}</div>
-							<div class="font-bold">{getMonthDate(imgDoc.uploadTime)[1]}</div>
+				<a href={`events/image/${imgDoc.id}`}>
+					<dl class="flex w-80">
+						<div class="flex space-x-4">
+							<div class=" flex flex-col rounded-xl border-2 p-2 px-4 justify-center items-center">
+								<div class=" font-bold">{getMonthDate(imgDoc.uploadTime)[0]}</div>
+								<div class="font-bold">{getMonthDate(imgDoc.uploadTime)[1]}</div>
+							</div>
+							<span class="flex-auto">
+								<dt class=" font-extrabold text-lg">{imgDoc.structurized_text.title}</dt>
+								<dd class=" text-sm">{imgDoc.structurized_text.location}</dd>
+								<dd class=" text-sm">{formatTimestamp(imgDoc.uploadTime)}</dd>
+							</span>
 						</div>
-						<span class="flex-auto">
-							<dt class=" font-extrabold text-lg">{imgDoc.structurized_text.title}</dt>
-							<dd class=" text-sm">{imgDoc.structurized_text.location}</dd>
-						</span>
-					</div>
-				</dl>
+					</dl>
+				</a>
 			{/if}
 		{/each}
 	</section>

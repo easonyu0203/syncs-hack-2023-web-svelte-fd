@@ -57,19 +57,21 @@
 			{#if searchTerm == '' || imgDoc.structurized_text.title
 					.toLowerCase()
 					.includes(searchTerm.toLowerCase())}
-				<dl class="flex w-80">
-					<div class="flex space-x-4">
-						<div class=" flex flex-col rounded-xl border-2 p-2 px-4 justify-center items-center">
-							<div class=" font-bold">{getMonthDate(imgDoc.uploadTime)[0]}</div>
-							<div class="font-bold">{getMonthDate(imgDoc.uploadTime)[1]}</div>
+				<a href={`events/image/${imgDoc.id}`}>
+					<dl class="flex w-80">
+						<div class="flex space-x-4">
+							<div class=" flex flex-col rounded-xl border-2 p-2 px-4 justify-center items-center">
+								<div class=" font-bold">{getMonthDate(imgDoc.uploadTime)[0]}</div>
+								<div class="font-bold">{getMonthDate(imgDoc.uploadTime)[1]}</div>
+							</div>
+							<span class="flex-auto">
+								<dt class=" font-extrabold text-lg">{imgDoc.structurized_text.title}</dt>
+								<dd class=" text-sm">{imgDoc.structurized_text.location}</dd>
+								<dd class=" text-sm">{formatTimestamp(imgDoc.uploadTime)}</dd>
+							</span>
 						</div>
-						<span class="flex-auto">
-							<dt class=" font-extrabold text-lg">{imgDoc.structurized_text.title}</dt>
-							<dd class=" text-sm">{imgDoc.structurized_text.location}</dd>
-							<dd class=" text-sm">{formatTimestamp(imgDoc.uploadTime)}</dd>
-						</span>
-					</div>
-				</dl>
+					</dl>
+				</a>
 				<hr />
 			{/if}
 		{/each}
