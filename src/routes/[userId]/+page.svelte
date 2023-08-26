@@ -35,6 +35,17 @@
 		0,
 		4
 	);
+
+	function getMonthDate(timestamp: number) {
+		const date = new Date(timestamp);
+		const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-based, so we add 1
+		const day = String(date.getDate()).padStart(2, '0');
+
+		// turn month into three letters
+		const monthName = new Intl.DateTimeFormat('en-US', { month: 'short' }).format(date);
+
+		return [monthName, day];
+	}
 </script>
 
 <main
@@ -80,10 +91,10 @@
 				</div>
 			{:else}
 				<dl class="flex w-80">
-					<div class="flex space-x-3">
+					<div class="flex space-x-4">
 						<div class=" flex flex-col rounded-xl border-2 p-2 px-4 justify-center items-center">
-							<div class=" font-bold">Aug</div>
-							<div class="font-bold">24</div>
+							<div class=" font-bold">{getMonthDate(imgDoc.uploadTime)[0]}</div>
+							<div class="font-bold">{getMonthDate(imgDoc.uploadTime)[1]}</div>
 						</div>
 						<span class="flex-auto">
 							<dt class=" font-extrabold text-lg">{imgDoc.structurized_text.title}</dt>
@@ -91,9 +102,6 @@
 						</span>
 					</div>
 				</dl>
-				<!-- <a href={`images/${imgDoc.id}`} class="card block card-hover p-4 rounded-xl">
-					<h4 class="h4">{imgDoc.structurized_text.title}</h4>
-				</a> -->
 			{/if}
 		{/each}
 	</section>

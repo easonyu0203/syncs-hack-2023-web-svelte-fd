@@ -91,6 +91,9 @@ function setContext(key, context) {
 function getContext(key) {
   return get_current_component().$$.context.get(key);
 }
+function ensure_array_like(array_like_or_iterator) {
+  return array_like_or_iterator?.length !== void 0 ? array_like_or_iterator : Array.from(array_like_or_iterator);
+}
 const _boolean_attributes = (
   /** @type {const} */
   [
@@ -208,6 +211,14 @@ function escape_object(obj) {
   }
   return result;
 }
+function each(items, fn) {
+  items = ensure_array_like(items);
+  let str = "";
+  for (let i = 0; i < items.length; i += 1) {
+    str += fn(items[i], i);
+  }
+  return str;
+}
 const missing_component = {
   $$render: () => ""
 };
@@ -275,23 +286,24 @@ export {
   validate_store as a,
   subscribe as b,
   create_ssr_component as c,
-  add_attribute as d,
+  createEventDispatcher as d,
   escape as e,
-  spread as f,
-  escape_object as g,
-  createEventDispatcher as h,
-  add_styles as i,
-  compute_slots as j,
-  get_store_value as k,
-  compute_rest_props as l,
+  add_attribute as f,
+  each as g,
+  spread as h,
+  escape_object as i,
+  compute_rest_props as j,
+  escape_attribute_value as k,
+  add_styles as l,
   missing_component as m,
-  escape_attribute_value as n,
+  compute_slots as n,
   onDestroy as o,
-  getContext as p,
-  noop as q,
-  run_all as r,
+  get_store_value as p,
+  getContext as q,
+  noop as r,
   setContext as s,
-  safe_not_equal as t,
-  is_function as u,
-  validate_component as v
+  run_all as t,
+  safe_not_equal as u,
+  validate_component as v,
+  is_function as w
 };

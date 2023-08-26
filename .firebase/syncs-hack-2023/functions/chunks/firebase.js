@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { doc, onSnapshot, getFirestore, setDoc } from "firebase/firestore";
+import { doc, onSnapshot, collection, getFirestore, setDoc } from "firebase/firestore";
 import { onAuthStateChanged, getAuth } from "firebase/auth";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { w as writable, d as derived } from "./index.js";
@@ -58,6 +58,38 @@ function docStore(firestore2, ref2, startWith) {
     subscribe,
     ref: docRef,
     id: docRef.id
+  };
+}
+function collectionStore(firestore2, ref2, startWith = []) {
+  let unsubscribe;
+  if (!globalThis.window) {
+    const { subscribe: subscribe2 } = writable(startWith);
+    return {
+      subscribe: subscribe2,
+      ref: null
+    };
+  }
+  if (!firestore2) {
+    console.warn("Firestore is not initialized. Are you missing FirebaseApp as a parent component?");
+    const { subscribe: subscribe2 } = writable([]);
+    return {
+      subscribe: subscribe2,
+      ref: null
+    };
+  }
+  const colRef = typeof ref2 === "string" ? collection(firestore2, ref2) : ref2;
+  const { subscribe } = writable(startWith, (set) => {
+    unsubscribe = onSnapshot(colRef, (snapshot) => {
+      const data = snapshot.docs.map((s) => {
+        return { id: s.id, ref: s.ref, ...s.data() };
+      });
+      set(data);
+    });
+    return () => unsubscribe();
+  });
+  return {
+    subscribe,
+    ref: colRef
   };
 }
 const firebaseConfig = {
@@ -146,9 +178,10 @@ async function uploadImg(img) {
 }
 export {
   auth as a,
-  userData as b,
-  uploadImg as c,
+  uploadImg as b,
+  collectionStore as c,
   docStore as d,
+  userData as e,
   firestore as f,
   storage as s,
   userStore as u
