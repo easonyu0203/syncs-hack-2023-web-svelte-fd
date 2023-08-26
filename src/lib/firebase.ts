@@ -8,6 +8,9 @@ import { GoogleAuthProvider } from 'firebase/auth';
 
 // Firebase storage imports
 import { ref, uploadBytes, getDownloadURL, getStorage } from 'firebase/storage';
+import type { Readable } from 'svelte/motion';
+import { derived } from 'svelte/store';
+import { docStore, userStore } from 'sveltefire';
 
 // Firebase configuration object
 const firebaseConfig = {
@@ -33,7 +36,7 @@ export interface ImgData {
 	userId: string;
 	imgUrl: string | null;
 	gsUrl: string | null;
-	uploadTime: string;
+	uploadTime: number;
 	status:
 		| 'uploading'
 		| 'unprocess'
@@ -54,6 +57,17 @@ const app = initializeApp(firebaseConfig);
 export const firestore = getFirestore();
 export const auth = getAuth();
 export const storage = getStorage();
+
+export const userData: Readable<UserData | null> = derived(userStore(auth), ($user, set) => {
+	if ($user) {
+		const { subscribe } = docStore<UserData>(firestore, `users/${$user.uid}`);
+		return subscribe((data) => {
+			set(data);
+		});
+	} else {
+		set(null);
+	}
+});
 
 /**
  * Handle Google sign-in and store user's data in Firestore
@@ -86,8 +100,9 @@ export async function signInWithGoogle() {
 /**
  * Handle image upload to Firebase Storage and its metadata to Firestore
  * @param {FileList} img - Image file list
+ * @returns {Promise<string>} - Image document ID
  */
-export async function uploadImg(img: FileList) {
+export async function uploadImg(img: FileList): Promise<string> {
 	if (!img || img.length === 0) {
 		throw new Error('No image provided.');
 	}
@@ -110,7 +125,6 @@ export async function uploadImg(img: FileList) {
 
 	// Use timestamp for unique naming
 	const timestamp = new Date().getTime();
-	const uploadTime = new Date(timestamp).toString();
 	const fileNameWithTime = `${timestamp}.jpg`; // Always save as .jpg
 	const storageRef = ref(storage, `user/${userId}/${fileNameWithTime}`);
 
@@ -120,7 +134,7 @@ export async function uploadImg(img: FileList) {
 		userId: userId,
 		imgUrl: null,
 		gsUrl: null,
-		uploadTime: uploadTime,
+		uploadTime: timestamp,
 		status: 'uploading',
 		text: null,
 		structurized_text: null,
@@ -168,4 +182,6 @@ export async function uploadImg(img: FileList) {
 				console.log(error);
 			});
 	}
+
+	return imgDocRef.id;
 }
