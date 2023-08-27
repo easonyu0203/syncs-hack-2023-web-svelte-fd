@@ -4,7 +4,7 @@ import { S as SunnyTitle } from "../../../../chunks/SunnyTitle.js";
 import "firebase/auth";
 import { f as firestore, c as collectionStore } from "../../../../chunks/firebase.js";
 import "firebase/storage";
-import { collection, query, where, limit } from "firebase/firestore";
+import { collection, query, where } from "firebase/firestore";
 import { p as page } from "../../../../chunks/stores.js";
 import "../../../../chunks/ProgressBar.svelte_svelte_type_style_lang.js";
 function formatTimestamp(timestamp) {
@@ -21,7 +21,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   validate_store(page, "page");
   $$unsubscribe_page = subscribe(page, (value) => $page = value);
   const imagesRef = collection(firestore, "images");
-  const q = query(imagesRef, where("userId", "==", $page.params.userId), limit(4));
+  const q = query(imagesRef, where("userId", "==", $page.params.userId));
   const images = collectionStore(firestore, q);
   validate_store(images, "images");
   $$unsubscribe_images = subscribe(images, (value) => $images = value);
