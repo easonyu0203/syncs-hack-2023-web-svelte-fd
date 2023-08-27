@@ -35,6 +35,8 @@
 		4
 	);
 
+	$: console.log($images);
+
 	function formatTimestamp(timestamp: number) {
 		const date = new Date(timestamp);
 		const year = date.getFullYear();
@@ -61,8 +63,7 @@
 >
 	<SunnyTitle actionName="Notes" />
 	<HomeButton />
-	<div class="h-28" />
-
+	<div class=" h-80" />
 	<div class="w-full flex justify-end">
 		<a href={`/notes/${$page.params.userId}`} class=" underline">More Notes</a>
 	</div>
@@ -76,8 +77,14 @@
 					</div>
 				</div>
 			{:else}
-				<a href={`notes/image/${imgDoc.id}`} class="card block card-hover p-4 rounded-xl">
+				<a
+					href={`notes/image/${imgDoc.id}`}
+					class="card card-hover p-4 rounded-xl flex justify-between flex-col"
+				>
 					<div class="font-extrabold text-lg">{imgDoc.structurized_text.title}</div>
+					<div class="w-full flex justify-end">
+						<dd class=" text-sm">{formatTimestamp(imgDoc.uploadTime)}</dd>
+					</div>
 				</a>
 			{/if}
 		{/each}
@@ -92,8 +99,7 @@
 		{#each events as imgDoc}
 			{#if imgDoc == 0}
 				<div class="card block card-hover p-4 rounded-xl">
-					<div class="p-4 space-y-4">
-						<div class="placeholder animate-pulse w-24" />
+					<div class="p-4 space-y-4 w-64">
 						<div class="placeholder animate-pulse w-24" />
 					</div>
 				</div>

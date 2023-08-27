@@ -12,6 +12,8 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   {
     if ($user) {
       goto(`/${$user.uid}`);
+    } else {
+      goto("/login");
     }
   }
   $$unsubscribe_user();

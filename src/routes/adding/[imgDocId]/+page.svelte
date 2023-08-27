@@ -49,7 +49,7 @@
 
 		<div class=" flex flex-col space-y-6 mb-16">
 			<a href="/">
-				<button type="button" class="btn variant-filled-primary font-bold text-xl"
+				<button type="button" class="btn variant-filled-primary font-bold text-2xl w-48 rounded-lg"
 					>Save as {$imgDoc?.category}</button
 				>
 			</a>

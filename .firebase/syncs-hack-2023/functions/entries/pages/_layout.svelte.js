@@ -349,9 +349,9 @@ const Rustic = create_ssr_component(($$result, $$props, $$bindings, slots) => {
 					0 0 0 1 0"></feColorMatrix></filter></svg>`;
 });
 const Layout = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  return `${validate_component(Toast, "Toast").$$render($$result, { position: "t" }, {}, {})} ${validate_component(Rustic, "Rustic").$$render($$result, {}, {}, {})} ${validate_component(Drawer, "Drawer").$$render($$result, { position: "bottom", height: " h-32" }, {}, {
+  return `${validate_component(Toast, "Toast").$$render($$result, { position: "t" }, {}, {})} ${validate_component(Rustic, "Rustic").$$render($$result, {}, {}, {})} ${validate_component(Drawer, "Drawer").$$render($$result, { position: "bottom", height: " h-52" }, {}, {
     default: () => {
-      return `<div class="flex flex-col space-y-4 h-full justify-center items-center"><a href="/"><button type="button" class="btn variant-filled-error font-bold text-2xl w-48 rounded-lg" data-svelte-h="svelte-1u8t4">Cancel</button></a></div>`;
+      return `<div class="flex flex-col space-y-8 h-full justify-center items-center"><a href="/"><button type="button" class="btn variant-filled-secondary font-bold text-2xl w-48 rounded-lg" data-svelte-h="svelte-akkvgt">Save as Note</button></a> <a href="/"><button type="button" class="btn variant-filled-error font-bold text-2xl w-48 rounded-lg" data-svelte-h="svelte-nkt8vj">Don&#39;t Save</button></a></div>`;
     }
   })} ${validate_component(FirebaseApp, "FirebaseApp").$$render($$result, { auth, firestore, storage }, {}, {
     default: () => {

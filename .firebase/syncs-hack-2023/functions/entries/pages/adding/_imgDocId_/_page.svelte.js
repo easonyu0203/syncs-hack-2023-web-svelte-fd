@@ -22,10 +22,9 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   $$unsubscribe_page();
   return `<main class="container h-screen bg-surface-900 relative flex flex-col justify-around items-center p-8 space-y-12">${validate_component(SunnyTitle, "SunnyTitle").$$render($$result, { actionName: "Snap" }, {}, {})} ${$imgDoc ? `<div class="w-full flex justify-end"><img${add_attribute("src", $imgDoc?.imgUrl, 0)} alt="image_snap" class="absolute top-10 right-5 mr-2 max-h-56 object-cover w-48 -z-0"></div> <div></div> <div class="m-auto max-w-xs"><h1 class="h1">${escape($imgDoc?.structurized_text.title)}</h1> ${$imgDoc?.category == "events" ? `<h4 class="h4">${escape($imgDoc?.structurized_text.location)}</h4> <h4 class="h4">${escape($imgDoc?.structurized_text.time)}</h4> <hr class="!border-t-2 m-2"> <p>${escape($imgDoc?.structurized_text.description.replace("//", "\n"))}</p>` : `${$imgDoc?.category == "notes" ? `<hr class="!border-t-2 m-2"> <ul class="list max-h-72 overflow-scroll">${each($imgDoc?.structurized_text.summary.replace("//", "").split("- "), (bul) => {
     return `<li class="list-item">${escape(bul)}</li>`;
-  })}</ul>` : ``}`}</div> <div class="flex flex-col space-y-6 mb-16"><a href="/"><button type="button" class="btn variant-filled-primary font-bold text-xl">Save as ${escape($imgDoc?.category)}</button></a> <button type="button" class="underline" data-svelte-h="svelte-1smb5j6">Other Options</button></div>` : `${validate_component(ProgressRadial, "ProgressRadial").$$render(
+  })}</ul>` : ``}`}</div> <div class="flex flex-col space-y-6 mb-16"><a href="/"><button type="button" class="btn variant-filled-primary font-bold text-2xl w-48 rounded-lg">Save as ${escape($imgDoc?.category)}</button></a> <button type="button" class="underline" data-svelte-h="svelte-1smb5j6">Other Options</button></div>` : `${validate_component(ProgressRadial, "ProgressRadial").$$render(
     $$result,
     {
-      "...": true,
       stroke: 100,
       meter: "stroke-primary-500",
       track: "stroke-primary-500/30"

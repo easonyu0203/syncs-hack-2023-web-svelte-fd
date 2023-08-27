@@ -17,11 +17,16 @@
 
 <Toast position="t" />
 <Rustic />
-<Drawer position="bottom" height=" h-32">
-	<div class=" flex flex-col space-y-4 h-full justify-center items-center">
+<Drawer position="bottom" height=" h-52">
+	<div class=" flex flex-col space-y-8 h-full justify-center items-center">
+		<a href="/">
+			<button type="button" class="btn variant-filled-secondary font-bold text-2xl w-48 rounded-lg"
+				>Save as Note</button
+			>
+		</a>
 		<a href="/">
 			<button type="button" class="btn variant-filled-error font-bold text-2xl w-48 rounded-lg"
-				>Cancel</button
+				>Don't Save</button
 			>
 		</a>
 	</div>

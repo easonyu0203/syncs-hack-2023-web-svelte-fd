@@ -49,7 +49,7 @@
 			on:click={() => signInAnonymously(auth)}
 		>
 			<Icon class="text-xl" icon="mdi:anonymous" />
-			<span>Sign in with Facebook</span>
+			<span>Sign in Anonymously</span>
 		</button>
 	</div>
 </main>

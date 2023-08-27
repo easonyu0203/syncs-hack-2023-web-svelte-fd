@@ -159,12 +159,12 @@ export async function uploadImg(img: FileList): Promise<string> {
 		await setDoc(imgDocRef, imgData, { merge: true });
 	};
 
-	if (fileExtension === 'heic' || fileExtension === 'png') {
+	if (fileExtension === 'heic') {
 		const heic2any = (await import('heic2any')).default;
 		const convertedFile = (await heic2any({
 			blob: file,
 			toType: 'image/jpeg',
-			quality: 0.8 // You can adjust this for desired quality
+			quality: 0.6
 		})) as File;
 		convertAndUpload(convertedFile)
 			.then(() => {

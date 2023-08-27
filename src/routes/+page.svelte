@@ -10,5 +10,7 @@
 
 	$: if ($user) {
 		goto(`/${$user.uid}`);
+	} else {
+		goto('/login');
 	}
 </script>
