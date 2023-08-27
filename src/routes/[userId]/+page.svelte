@@ -59,20 +59,19 @@
 </script>
 
 <main
-	class=" container h-screen bg-surface-900 relative flex flex-col justify-start items-center px-8"
+	class=" container h-screen bg-surface-900 relative flex flex-col justify-center items-center px-8"
 >
 	<SunnyTitle actionName="Notes" />
 	<HomeButton />
-	<div class=" h-80" />
-	<div class="w-full flex justify-end">
+	<div class="w-full h-32 flex-grow-0" />
+	<div class="w-full flex flex-grow justify-end">
 		<a href={`/notes/${$page.params.userId}`} class=" underline">More Notes</a>
 	</div>
-	<section class="grid grid-cols-2 gap-4 mt-4">
+	<section class="flex-grow grid grid-cols-2 gap-4 mt-4">
 		{#each notes as imgDoc}
 			{#if imgDoc == 0}
 				<div class="card block card-hover p-4 rounded-xl">
 					<div class="p-4 space-y-3">
-						<div class="placeholder animate-pulse w-24" />
 						<div class="placeholder animate-pulse w-24" />
 					</div>
 				</div>
@@ -81,21 +80,21 @@
 					href={`notes/image/${imgDoc.id}`}
 					class="card card-hover p-4 rounded-xl flex justify-between flex-col"
 				>
-					<div class="font-extrabold text-lg">{imgDoc.structurized_text.title}</div>
-					<div class="w-full flex justify-end">
+					<div class="font-bold text-sm">{imgDoc.structurized_text.title}</div>
+					<!-- <div class="w-full flex justify-end">
 						<dd class=" text-sm">{formatTimestamp(imgDoc.uploadTime)}</dd>
-					</div>
+					</div> -->
 				</a>
 			{/if}
 		{/each}
 	</section>
 
-	<div class="w-full flex justify-between items-end mt-8">
+	<div class="flex-grow w-full flex justify-between items-end mt-3">
 		<a href={`/events/${$page.params.userId}`} class=" underline">More Events</a>
-		<h1 class="h1 text-4xl">Events</h1>
+		<h1 class="h1 text-2xl">Events</h1>
 	</div>
 
-	<section class="flex flex-col mt-6 gap-4">
+	<section class="flex-grow flex flex-col mt-6 gap-4">
 		{#each events as imgDoc}
 			{#if imgDoc == 0}
 				<div class="card block card-hover p-4 rounded-xl">
@@ -106,13 +105,13 @@
 			{:else}
 				<a href={`events/image/${imgDoc.id}`}>
 					<dl class="flex w-80">
-						<div class="flex space-x-4">
+						<div class="flex space-x-3">
 							<div class=" flex flex-col rounded-xl border-2 p-2 px-4 justify-center items-center">
-								<div class=" font-bold">{getMonthDate(imgDoc.uploadTime)[0]}</div>
-								<div class="font-bold">{getMonthDate(imgDoc.uploadTime)[1]}</div>
+								<div class=" font-bold text-sm">{getMonthDate(imgDoc.uploadTime)[0]}</div>
+								<div class="font-bold text-sm">{getMonthDate(imgDoc.uploadTime)[1]}</div>
 							</div>
 							<span class="flex-auto">
-								<dt class=" font-extrabold text-lg">{imgDoc.structurized_text.title}</dt>
+								<dt class=" font-extrabold">{imgDoc.structurized_text.title}</dt>
 								<dd class=" text-sm">{imgDoc.structurized_text.location}</dd>
 								<dd class=" text-sm">{formatTimestamp(imgDoc.uploadTime)}</dd>
 							</span>
@@ -131,12 +130,12 @@
 				bind:files
 				name="files"
 				button="variant-filled-primary "
-				class="btn variant-filled-primary rounded-xl font-extrabold w-64 p-1"
-				><p class=" text-2xl">Add Picture</p></FileButton
+				class="btn variant-filled-primary rounded-xl font-extrabold w-48 p-1"
+				><p class="">Add Picture</p></FileButton
 			>
 			<button
 				type="button"
-				class="btn p-3 variant-filled-secondary text-2xl rounded-xl font-extrabold w-64"
+				class="btn p-3 variant-filled-secondary rounded-xl font-extrabold w-48"
 				on:click={() => {
 					toastStore.trigger({
 						message: 'not yet implemented 🫠😭'

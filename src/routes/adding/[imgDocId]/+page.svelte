@@ -20,14 +20,13 @@
 
 	{#if $imgDoc}
 		<div class=" w-full flex justify-end">
-			<img
+			<!-- <img
 				src={$imgDoc?.imgUrl}
 				alt="image_snap"
 				use:filter={'#Rustic'}
-				class=" absolute top-10 right-5 mr-2 max-h-56 object-cover w-48 -z-0"
-			/>
+				class=" absolute top-10 right-5 mr-2 max-h-56 object-cover w-48 -z-0 opacity-70"
+			/> -->
 		</div>
-		<div />
 		<div class=" m-auto max-w-xs">
 			<h1 class="h1">{$imgDoc?.structurized_text.title}</h1>
 			{#if $imgDoc?.category == 'events'}
@@ -35,7 +34,9 @@
 				<h4 class="h4">{$imgDoc?.structurized_text.time}</h4>
 				<hr class="!border-t-2 m-2" />
 
-				<p>{$imgDoc?.structurized_text.description.replace('//', '\n')}</p>
+				<p class=" max-h-64 overflow-auto">
+					{$imgDoc?.structurized_text.description.replace('//', '\n')}
+				</p>
 			{:else if $imgDoc?.category == 'notes'}
 				<hr class="!border-t-2 m-2" />
 
