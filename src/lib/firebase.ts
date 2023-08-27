@@ -86,7 +86,7 @@ export async function signInWithGoogle() {
 	// Prepare user data to be stored/merged in Firestore
 	const userData: UserData = {
 		email: user.email ?? '[no email]',
-		displayName: user.displayName ?? '[no name]',
+		displayName: user.displayName ?? 'Snap',
 		photoURL: user.photoURL ?? '',
 		firstTimeLogin: firstTimeLogin
 	};
@@ -109,7 +109,7 @@ export async function mySignInAnonymously() {
 	// Prepare user data to be stored/merged in Firestore
 	const userData: UserData = {
 		email: user.email ?? '[no email]',
-		displayName: user.displayName ?? '[no name]',
+		displayName: user.displayName ?? 'Snap',
 		photoURL: user.photoURL ?? '',
 		firstTimeLogin: firstTimeLogin
 	};

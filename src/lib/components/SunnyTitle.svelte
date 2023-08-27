@@ -15,6 +15,6 @@
 	}}
 	class=" absolute top-0 left-0 m-4"
 >
-	<h1 class="h1 text-xl">{name}'s</h1>
-	<h1 class="h1 text-xl">{actionName}</h1>
+	<h1 class="h1 text-xl z-40">{name}'s</h1>
+	<h1 class="h1 text-xl z-40">{actionName}</h1>
 </button>
