@@ -21,7 +21,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
         pressAction = true;
       }
     }
-    $$rendered = `<main class="container h-screen bg-surface-900 relative flex flex-col justify-center items-center">${validate_component(HomeButton, "HomeButton").$$render($$result, {}, {}, {})} ${validate_component(SunnyTitle, "SunnyTitle").$$render($$result, { actionName: "Snap" }, {}, {})} <div class="flex-grow-0 h-52"></div> <div class="flex-grow relative flex items-center w-full justify-end"><img src="/snap.png" alt="snap pictur!" class="left-0 aspect-square h-48 absolute"> <div class="w-60 text-lg text-center pl-2 pr-8" data-svelte-h="svelte-1o8vv4z">Snap a picture or audio, and let us turn it into organized notes for you!</div></div> <div class="w-full flex justify-end mt-4"><h1 class="h1 text-3xl mr-4" data-svelte-h="svelte-n7uuii">Events</h1></div> <div class="flex-grow relative flex items-center w-full justify-start mb-12"><img src="/nap.png" alt="nap tent!" class="right-0 aspect-square h-36 absolute"> <div class="w-60 text-lg text-center pl-8 pr-4" data-svelte-h="svelte-okyp8h">Snap a picture or audio, and let us turn it into organized notes for you!</div></div> <div class="flex-grow flex flex-col space-y-4 items-center mb-4">${pressAction ? `${validate_component(ProgressRadial, "ProgressRadial").$$render(
+    $$rendered = `<main class="container h-screen bg-surface-900 relative flex flex-col justify-center items-center"><div class="flex justify-between w-full">${validate_component(SunnyTitle, "SunnyTitle").$$render($$result, { actionName: "Snap" }, {}, {})} ${validate_component(HomeButton, "HomeButton").$$render($$result, {}, {}, {})}</div> <div class="flex-grow relative flex items-center w-full justify-end"><img src="/snap.png" alt="snap pictur!" class="left-0 aspect-square h-48 absolute"> <div class="w-60 text-lg text-center pl-2 pr-8" data-svelte-h="svelte-1o8vv4z">Snap a picture or audio, and let us turn it into organized notes for you!</div></div> <div class="w-full flex justify-end mt-4"><h1 class="h1 text-3xl mr-4" data-svelte-h="svelte-n7uuii">Events</h1></div> <div class="flex-grow relative flex items-center w-full justify-start mb-12"><img src="/nap.png" alt="nap tent!" class="right-0 aspect-square h-36 absolute"> <div class="w-60 text-lg text-center pl-8 pr-4" data-svelte-h="svelte-okyp8h">Snap a picture or audio, and let us turn it into organized notes for you!</div></div> <div class="flex-grow flex flex-col space-y-4 items-center mb-4">${pressAction ? `${validate_component(ProgressRadial, "ProgressRadial").$$render(
       $$result,
       {
         "...": true,
@@ -50,7 +50,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
           return `<p class="text-2xl" data-svelte-h="svelte-nlfkcs">Add Picture</p>`;
         }
       }
-    )} <button type="button" class="btn p-3 variant-filled-secondary text-2xl rounded-xl font-extrabold w-48" data-svelte-h="svelte-oyj0p0">Add Audio</button>`}</div></main>`;
+    )} <button type="button" class="btn p-3 variant-filled-secondary text-2xl rounded-xl font-extrabold w-48" data-svelte-h="svelte-1cpi4og">Add Audio</button>`}</div></main>`;
   } while (!$$settled);
   return $$rendered;
 });

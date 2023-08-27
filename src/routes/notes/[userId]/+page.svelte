@@ -29,8 +29,10 @@
 <main
 	class=" container h-screen bg-surface-900 relative flex flex-col justify-start items-center px-8"
 >
-	<SunnyTitle actionName="Notes" />
-	<HomeButton />
+	<div class=" flex justify-between w-full">
+		<SunnyTitle actionName="Notes" />
+		<HomeButton />
+	</div>
 	<div class=" h-36" />
 	<label class="label">
 		<input
@@ -43,13 +45,14 @@
 	<section class="grid grid-cols-2 gap-4 mt-8 overscroll-auto">
 		{#each notes as imgDoc}
 			{#if searchTerm == '' || imgDoc.structurized_text.title
+					.toUpperCase()
 					.toLowerCase()
 					.includes(searchTerm.toLowerCase())}
 				<a
 					href={`images/${imgDoc.id}`}
 					class="card space-y-2 card-hover p-4 rounded-xl flex flex-col"
 				>
-					<div class="font-extrabold text-lg">{imgDoc.structurized_text.title}</div>
+					<div class="font-extrabold text-lg">{imgDoc.structurized_text.title.toUpperCase()}</div>
 					<div class=" w-full flex justify-end text-sm">{formatTimestamp(imgDoc.uploadTime)}</div>
 				</a>
 			{/if}

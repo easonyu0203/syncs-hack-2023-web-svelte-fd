@@ -40,21 +40,23 @@
 <main
 	class=" container h-screen bg-surface-900 relative flex flex-col justify-start items-center px-8"
 >
-	<SunnyTitle actionName="Events" />
-	<HomeButton />
-	<div class="h-36" />
+	<div class=" mt-4 flex justify-between w-full">
+		<SunnyTitle actionName="Events" />
+		<HomeButton />
+	</div>
 	<label class="label">
 		<input
 			class="input p-2 px-6 w-56 rounded-lg"
 			type="text"
 			bind:value={searchTerm}
-			placeholder="Search Notes"
+			placeholder="Search Events"
 		/>
 	</label>
 
 	<section class="flex flex-col mt-6 gap-4">
 		{#each events as imgDoc}
 			{#if searchTerm == '' || imgDoc.structurized_text.title
+					.toUpperCase()
 					.toLowerCase()
 					.includes(searchTerm.toLowerCase())}
 				<a href={`events/image/${imgDoc.id}`}>
@@ -65,7 +67,9 @@
 								<div class="font-bold">{getMonthDate(imgDoc.uploadTime)[1]}</div>
 							</div>
 							<span class="flex-auto">
-								<dt class=" font-extrabold text-lg">{imgDoc.structurized_text.title}</dt>
+								<dt class=" font-extrabold text-lg">
+									{imgDoc.structurized_text.title.toUpperCase()}
+								</dt>
 								<dd class=" text-sm">{imgDoc.structurized_text.location}</dd>
 								<dd class=" text-sm">{formatTimestamp(imgDoc.uploadTime)}</dd>
 							</span>

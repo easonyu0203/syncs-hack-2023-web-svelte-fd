@@ -14,19 +14,13 @@
 </script>
 
 <main
-	class=" container h-screen bg-surface-900 relative flex flex-col justify-around items-center p-8 space-y-12"
+	class=" container h-screen bg-surface-900 relative flex flex-col justify-center items-center p-8 space-y-4"
 >
-	<SunnyTitle actionName="Snap" />
+	<div class=" flex justify-between w-full">
+		<SunnyTitle actionName="Snap" />
+	</div>
 
 	{#if $imgDoc}
-		<div class=" w-full flex justify-end">
-			<!-- <img
-				src={$imgDoc?.imgUrl}
-				alt="image_snap"
-				use:filter={'#Rustic'}
-				class=" absolute top-10 right-5 mr-2 max-h-56 object-cover w-48 -z-0 opacity-70"
-			/> -->
-		</div>
 		<div class=" m-auto max-w-xs">
 			<h1 class="h1">{$imgDoc?.structurized_text.title}</h1>
 			{#if $imgDoc?.category == 'events'}

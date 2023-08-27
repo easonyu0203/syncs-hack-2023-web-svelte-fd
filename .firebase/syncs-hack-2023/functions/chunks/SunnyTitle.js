@@ -9,9 +9,15 @@ const SunnyTitle = create_ssr_component(($$result, $$props, $$bindings, slots) =
   let name = "SnapNote";
   if ($$props.actionName === void 0 && $$bindings.actionName && actionName !== void 0)
     $$bindings.actionName(actionName);
-  name = $userData?.displayName || "SnapNote";
+  {
+    if ($userData?.displayName) {
+      name = $userData?.displayName;
+    } else {
+      name = "SnapNote";
+    }
+  }
   $$unsubscribe_userData();
-  return `<button class="absolute top-0 left-0 m-4"><h1 class="h1 text-xl">${escape(name)}&#39;s</h1> <h1 class="h1 text-xl">${escape(actionName)}</h1></button>`;
+  return `<button class="m-4"><h1 class="h1 text-xl z-40">${escape(name)}&#39;s</h1> <h1 class="h1 text-xl z-40">${escape(actionName)}</h1></button>`;
 });
 export {
   SunnyTitle as S

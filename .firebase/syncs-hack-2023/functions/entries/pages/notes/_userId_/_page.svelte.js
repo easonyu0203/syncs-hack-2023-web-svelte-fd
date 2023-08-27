@@ -29,7 +29,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   notes = $images.filter((imgDoc) => imgDoc.category == "notes");
   $$unsubscribe_images();
   $$unsubscribe_page();
-  return `<main class="container h-screen bg-surface-900 relative flex flex-col justify-start items-center px-8">${validate_component(SunnyTitle, "SunnyTitle").$$render($$result, { actionName: "Notes" }, {}, {})} ${validate_component(HomeButton, "HomeButton").$$render($$result, {}, {}, {})} <div class="h-36"></div> <label class="label"><input class="input p-2 px-6 w-56 rounded-lg" type="text" placeholder="Search Notes"${add_attribute("value", searchTerm, 0)}></label> <section class="grid grid-cols-2 gap-4 mt-8 overscroll-auto">${each(notes, (imgDoc) => {
+  return `<main class="container h-screen bg-surface-900 relative flex flex-col justify-start items-center px-8"><div class="flex justify-between w-full">${validate_component(HomeButton, "HomeButton").$$render($$result, {}, {}, {})} ${validate_component(SunnyTitle, "SunnyTitle").$$render($$result, { actionName: "Notes" }, {}, {})}</div> <label class="label"><input class="input p-2 px-6 w-56 rounded-lg" type="text" placeholder="Search Notes"${add_attribute("value", searchTerm, 0)}></label> <section class="grid grid-cols-2 gap-4 mt-8 overscroll-auto">${each(notes, (imgDoc) => {
     return `${`<a${add_attribute("href", `images/${imgDoc.id}`, 0)} class="card space-y-2 card-hover p-4 rounded-xl flex flex-col"><div class="font-extrabold text-lg">${escape(imgDoc.structurized_text.title)}</div> <div class="w-full flex justify-end text-sm">${escape(formatTimestamp(imgDoc.uploadTime))}</div> </a>`}`;
   })}</section></main>`;
 });

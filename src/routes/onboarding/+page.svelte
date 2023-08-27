@@ -20,9 +20,10 @@
 </script>
 
 <main class=" container h-screen bg-surface-900 relative flex flex-col justify-center items-center">
-	<HomeButton />
-	<SunnyTitle actionName="Snap" />
-	<div class=" flex-grow-0 h-52" />
+	<div class=" flex justify-between w-full">
+		<SunnyTitle actionName="Snap" />
+		<HomeButton />
+	</div>
 	<div class=" flex-grow relative flex items-center w-full justify-end">
 		<img src="/snap.png" alt="snap pictur!" class=" left-0 aspect-square h-48 absolute" />
 		<div class=" w-60 text-lg text-center pl-2 pr-8">
@@ -54,7 +55,7 @@
 				class="btn p-3 variant-filled-secondary text-2xl rounded-xl font-extrabold w-48"
 				on:click={() => {
 					toastStore.trigger({
-						message: 'not yet implemented 🫠😭'
+						message: 'Coming Soon! v2.0.'
 					});
 				}}>Add Audio</button
 			>

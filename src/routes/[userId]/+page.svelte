@@ -8,7 +8,6 @@
 	import { goto } from '$app/navigation';
 	import { FileButton, ProgressRadial } from '@skeletonlabs/skeleton';
 	import { toastStore } from '@skeletonlabs/skeleton';
-	import Icon from '@iconify/svelte';
 
 	const imagesRef = collection(firestore, 'images');
 	const q = query(imagesRef, where('userId', '==', $page.params.userId), limit(4));
@@ -58,29 +57,28 @@
 	}
 </script>
 
-<main
-	class=" container h-screen bg-surface-900 relative flex flex-col justify-center items-center px-8"
->
-	<SunnyTitle actionName="Notes" />
-	<HomeButton />
-	<div class="w-full h-32 flex-grow-0" />
+<main class=" container h-screen bg-surface-900 flex flex-col justify-center items-center px-8">
+	<div class=" mt-4 flex justify-between w-full">
+		<SunnyTitle actionName="Notes" />
+		<HomeButton />
+	</div>
 	<div class="w-full flex flex-grow justify-end">
 		<a href={`/notes/${$page.params.userId}`} class=" underline">More Notes</a>
 	</div>
-	<section class="flex-grow grid grid-cols-2 gap-4 mt-4">
+	<section class="flex-grow grid grid-cols-2 gap-4 mt-2">
 		{#each notes as imgDoc}
 			{#if imgDoc == 0}
-				<div class="card block card-hover p-4 rounded-xl">
-					<div class="p-4 space-y-3">
+				<div class="card block card-hover h-16 p-2 rounded-xl">
+					<div class="p-4 space-y-1">
 						<div class="placeholder animate-pulse w-24" />
 					</div>
 				</div>
 			{:else}
 				<a
 					href={`notes/image/${imgDoc.id}`}
-					class="card card-hover p-4 rounded-xl flex justify-between flex-col"
+					class="card card-hover p-4 max-h-20 overflow-clip rounded-xl flex justify-between flex-col"
 				>
-					<div class="font-bold text-sm">{imgDoc.structurized_text.title}</div>
+					<div class="font-bold text-sm">{imgDoc.structurized_text.title.toUpperCase()}</div>
 					<!-- <div class="w-full flex justify-end">
 						<dd class=" text-sm">{formatTimestamp(imgDoc.uploadTime)}</dd>
 					</div> -->
@@ -94,24 +92,24 @@
 		<h1 class="h1 text-2xl">Events</h1>
 	</div>
 
-	<section class="flex-grow flex flex-col mt-6 gap-4">
+	<section class="flex-grow flex flex-col mt-2 gap-4">
 		{#each events as imgDoc}
 			{#if imgDoc == 0}
-				<div class="card block card-hover p-4 rounded-xl">
-					<div class="p-4 space-y-4 w-64">
+				<div class="card block card-hover h-16 p-2 rounded-xl">
+					<div class="p-4 space-y-2 w-64">
 						<div class="placeholder animate-pulse w-24" />
 					</div>
 				</div>
 			{:else}
 				<a href={`events/image/${imgDoc.id}`}>
-					<dl class="flex w-80">
+					<dl class="flex w-80 max-h-20 overflow-clip">
 						<div class="flex space-x-3">
 							<div class=" flex flex-col rounded-xl border-2 p-2 px-4 justify-center items-center">
 								<div class=" font-bold text-sm">{getMonthDate(imgDoc.uploadTime)[0]}</div>
 								<div class="font-bold text-sm">{getMonthDate(imgDoc.uploadTime)[1]}</div>
 							</div>
 							<span class="flex-auto">
-								<dt class=" font-extrabold">{imgDoc.structurized_text.title}</dt>
+								<dt class=" font-extrabold">{imgDoc.structurized_text.title.toUpperCase()}</dt>
 								<dd class=" text-sm">{imgDoc.structurized_text.location}</dd>
 								<dd class=" text-sm">{formatTimestamp(imgDoc.uploadTime)}</dd>
 							</span>
@@ -138,7 +136,7 @@
 				class="btn p-3 variant-filled-secondary rounded-xl font-extrabold w-48"
 				on:click={() => {
 					toastStore.trigger({
-						message: 'not yet implemented 🫠😭'
+						message: 'Coming Soon! v2.0.'
 					});
 				}}>Add Audio</button
 			>

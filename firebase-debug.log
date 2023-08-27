@@ -1,0 +1,28 @@
+[debug] [2023-08-27T01:58:48.573Z] ----------------------------------------------------------------------
+[debug] [2023-08-27T01:58:48.574Z] Command:       /Users/Ethan/.nvm/versions/node/v18.17.1/bin/node /opt/homebrew/bin/firebase deploy
+[debug] [2023-08-27T01:58:48.574Z] CLI Version:   12.1.0
+[debug] [2023-08-27T01:58:48.574Z] Platform:      darwin
+[debug] [2023-08-27T01:58:48.574Z] Node Version:  v18.17.1
+[debug] [2023-08-27T01:58:48.575Z] Time:          Sun Aug 27 2023 11:58:48 GMT+1000 (Australian Eastern Standard Time)
+[debug] [2023-08-27T01:58:48.575Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-08-27T01:58:48.609Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-08-27T01:58:48.609Z] > authorizing via signed-in user (breaking0203@gmail.com)
+[debug] [2023-08-27T01:58:48.609Z] [iam] checking project syncs-hack-2023 for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2023-08-27T01:58:48.610Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/syncs-hack-2023:testIamPermissions [none]
+[debug] [2023-08-27T01:58:48.611Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/syncs-hack-2023:testIamPermissions x-goog-quota-user=projects/syncs-hack-2023
+[debug] [2023-08-27T01:58:48.611Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/syncs-hack-2023:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-08-27T01:58:49.891Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/syncs-hack-2023:testIamPermissions 200
+[debug] [2023-08-27T01:58:49.891Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/syncs-hack-2023:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-08-27T01:58:49.892Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/syncs-hack-2023 [none]
+[debug] [2023-08-27T01:58:50.584Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/syncs-hack-2023 200
+[debug] [2023-08-27T01:58:50.584Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/syncs-hack-2023 {"projectId":"syncs-hack-2023","projectNumber":"889434581645","displayName":"syncs-hack-2023","name":"projects/syncs-hack-2023","resources":{"hostingSite":"syncs-hack-2023","storageBucket":"syncs-hack-2023.appspot.com","locationId":"asia-east1"},"state":"ACTIVE","etag":"1_fb0927e6-568b-4e71-9c31-058e21b190d4"}
+[debug] [2023-08-27T01:58:51.470Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/syncs-hack-2023/sites pageToken=&pageSize=10
+[debug] [2023-08-27T01:58:52.705Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/syncs-hack-2023/sites 200
+[debug] [2023-08-27T01:58:52.706Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/syncs-hack-2023/sites {"sites":[{"name":"projects/syncs-hack-2023/sites/syncs-hack-2023","defaultUrl":"https://syncs-hack-2023.web.app","type":"DEFAULT_SITE"}]}
+[debug] [2023-08-27T01:58:52.707Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/syncs-hack-2023/sites 
+[debug] [2023-08-27T01:58:54.273Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/syncs-hack-2023/sites 200
+[debug] [2023-08-27T01:58:54.273Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/syncs-hack-2023/sites {"sites":[{"name":"projects/syncs-hack-2023/sites/syncs-hack-2023","defaultUrl":"https://syncs-hack-2023.web.app","type":"DEFAULT_SITE"}]}
+[debug] [2023-08-27T01:58:54.273Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/syncs-hack-2023/webApps/-/config [none]
+[debug] [2023-08-27T01:58:55.877Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/syncs-hack-2023/webApps/-/config 200
+[debug] [2023-08-27T01:58:55.877Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/syncs-hack-2023/webApps/-/config {"projectId":"syncs-hack-2023","appId":"1:889434581645:web:c6e07f55241380373d50c4","storageBucket":"syncs-hack-2023.appspot.com","locationId":"asia-east1","apiKey":"AIzaSyB54nr8Kf0B93FP5lCM_u0q0S6KnetybzM","authDomain":"syncs-hack-2023.firebaseapp.com","messagingSenderId":"889434581645","measurementId":"G-1TNP3QXPE0"}

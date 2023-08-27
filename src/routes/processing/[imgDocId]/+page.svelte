@@ -32,8 +32,10 @@
 <main
 	class=" container h-screen bg-surface-900 relative flex flex-col space-y-12 justify-center items-center"
 >
-	<HomeButton />
-	<SunnyTitle actionName="Snap" />
+	<div class=" flex justify-between w-full">
+		<SunnyTitle actionName="Snap" />
+		<HomeButton />
+	</div>
 	<img src="/ghost.gif" alt="ghost flow" class="max-w-xs" />
 	<div class=" max-w-xs">
 		<p class="text-2xl font-semibold">Nice Snap! Let's see what we can do with this snap!</p>

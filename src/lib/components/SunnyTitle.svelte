@@ -5,7 +5,11 @@
 
 	export let actionName = 'Note';
 	let name = 'SnapNote';
-	$: name = $userData?.displayName || 'SnapNote';
+	$: if ($userData?.displayName) {
+		name = $userData?.displayName;
+	} else {
+		name = 'SnapNote';
+	}
 </script>
 
 <button
@@ -13,7 +17,7 @@
 		signOut(auth);
 		goto('/login');
 	}}
-	class=" absolute top-0 left-0 m-4"
+	class=" m-4"
 >
 	<h1 class="h1 text-xl z-40">{name}'s</h1>
 	<h1 class="h1 text-xl z-40">{actionName}</h1>
