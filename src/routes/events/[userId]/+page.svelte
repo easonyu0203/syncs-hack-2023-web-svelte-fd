@@ -10,7 +10,7 @@
 	import { toastStore } from '@skeletonlabs/skeleton';
 
 	const imagesRef = collection(firestore, 'images');
-	const q = query(imagesRef, where('userId', '==', $page.params.userId), limit(4));
+	const q = query(imagesRef, where('userId', '==', $page.params.userId));
 	const images = collectionStore<ImgData>(firestore, q);
 	$: events = $images.filter((imgDoc) => imgDoc.category == 'events');
 

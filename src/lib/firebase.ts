@@ -3,7 +3,7 @@ import { initializeApp } from 'firebase/app';
 import { doc, getDoc, getFirestore, setDoc } from 'firebase/firestore';
 
 // Firebase authentication imports
-import { getAuth, signInWithPopup, type UserCredential } from 'firebase/auth';
+import { getAuth, signInAnonymously, signInWithPopup, type UserCredential } from 'firebase/auth';
 import { GoogleAuthProvider } from 'firebase/auth';
 
 // Firebase storage imports
@@ -76,6 +76,29 @@ export async function signInWithGoogle() {
 	// Using GoogleAuthProvider for sign in
 	const provider = new GoogleAuthProvider();
 	const result = await signInWithPopup(auth, provider);
+
+	const user = result.user;
+	const userDocRef = doc(firestore, 'users', user.uid);
+
+	// get the user
+	const firstTimeLogin = !(await getDoc(userDocRef)).exists();
+
+	// Prepare user data to be stored/merged in Firestore
+	const userData: UserData = {
+		email: user.email ?? '[no email]',
+		displayName: user.displayName ?? '[no name]',
+		photoURL: user.photoURL ?? '',
+		firstTimeLogin: firstTimeLogin
+	};
+
+	// Store or merge user data
+	await setDoc(userDocRef, userData, { merge: true });
+
+	console.log('sign in!');
+}
+
+export async function mySignInAnonymously() {
+	const result = await signInAnonymously(auth);
 
 	const user = result.user;
 	const userDocRef = doc(firestore, 'users', user.uid);

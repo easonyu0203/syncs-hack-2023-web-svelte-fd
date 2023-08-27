@@ -2,7 +2,7 @@
 	import Icon from '@iconify/svelte';
 	import { signInAnonymously } from 'firebase/auth';
 
-	import { auth, signInWithGoogle, userData } from '$lib/firebase';
+	import { auth, mySignInAnonymously, signInWithGoogle, userData } from '$lib/firebase';
 	import { userStore } from 'sveltefire';
 	import { goto } from '$app/navigation';
 
@@ -25,7 +25,7 @@
 >
 	<div class=" bg-surface-900 absolute bottom-0 h-[50%] -z-10 w-full rounded-tr-[7em]" />
 	<div class="flex flex-col items-center">
-		<img src="/logo.png" alt="logo" class=" aspect-square max-h-60" />
+		<img src="/logo.png" alt="logo" class=" aspect-square max-h-48" />
 		<p class=" w-64 text-center text-lg font-semibold">
 			Snap or Record to Create Organized Notes Instantly
 		</p>
@@ -46,7 +46,7 @@
 		<button
 			type="button"
 			class="btn variant-filled rounded-lg font-bold"
-			on:click={() => signInAnonymously(auth)}
+			on:click={() => mySignInAnonymously()}
 		>
 			<Icon class="text-xl" icon="mdi:anonymous" />
 			<span>Sign in Anonymously</span>
